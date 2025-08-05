@@ -6,15 +6,33 @@
 			Upload the Business Card to Scan and Extract Entities
 		</h2>
 		<div class="container mt-5">
-			<form class="row g-3" action="#" method="POST" enctype="multipart/form-data">
+			<form class="row g-3" action="/scan_doc" method="POST" enctype="multipart/form-data">
 				<div class="d-flex flex-row align-items-center">
 					<div>
-						<input class="form-control" type="file" id="formFile" required>
+						<input class="form-control" type="file" id="formFile" name="file_name" required>
 					</div>
 					<button type="submit" class="btn btn-primary">Upload Document(s)</button>
 				</div>
 			</form>
 		</div>
+		<!-- Creating CANVAS-->
+		{% if file_upload %}
+			<div class="container mt-5">
+				<p>{{ message }}</p>
 
+				<div class="row">
+					<div class="col">
+						<canvas id="canvas" style="max-width: 100%; height: auto">
+						</canvas>
+					</div>
+					<div class="col text-center" id="loader">
+
+					</div>
+				</div>
+			</div>
+			<script>
+                loadPoints({{ points | tojson }}, '/' + {{ image_path|tojson|safe }})
+			</script>
+		{% endif %}
 	</div>
 {% endblock %}

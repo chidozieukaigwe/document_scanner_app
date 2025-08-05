@@ -45,7 +45,7 @@ function loadImage(file) {
 }
 
 
-function loadPoints(points) {
+function loadPoints(points, imagePath) {
 
     for (let i = 0; i < points.length; i++) {
         let radius = 6;
@@ -56,7 +56,8 @@ function loadPoints(points) {
         let color = "#FFFF00"
         let circle = new Circle(x, y, radius, color);
         circles.push(circle);
-        processFunction('/static/media/resize_image.jpg')
+        // @todo retrieve image path dynamically and replace hardcoded path below
+        processFunction(imagePath)
 
     }
 };

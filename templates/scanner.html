@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block body %}
+	<div class="container">
+		<h2 class="text-center">
+			Upload the Business Card to Scan and Extract Entities
+		</h2>
+		<div class="container mt-5">
+			<form class="row g-3" action="#" method="POST" enctype="multipart/form-data">
+				<div class="d-flex flex-row align-items-center">
+					<div>
+						<input class="form-control" type="file" id="formFile" required>
+					</div>
+					<button type="submit" class="btn btn-primary">Upload Document(s)</button>
+				</div>
+			</form>
+		</div>
+
+	</div>
+{% endblock %}

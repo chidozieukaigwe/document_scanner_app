@@ -14,5 +14,10 @@ def about():
     return render_template('about.html')
 
 
+@app.route('/scanner', methods=['GET'])
+def scanner():
+    return render_template('scanner.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

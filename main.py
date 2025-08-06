@@ -1,5 +1,8 @@
+import cv2
+import numpy as np
 from flask import Flask, render_template, request
 
+import settings
 import utils
 from document_scan import DocumentScanner
 
@@ -55,6 +58,26 @@ def scan_doc():
             return render_template('scanner.html',
                                    points=points, message=message, file_upload=True, image_path=resized_image_path)
     return render_template('scanner.html')
+
+
+@app.route('/transform', methods=['POST'])
+def transform():
+    try:
+        points = request.json['data']
+        file_name = request.json['fileName']
+        array = np.array(points)
+        magic_color_image = doc_scan.calibrate_to_original_size(array)
+        filename = 'magic_color_' + file_name
+        magic_image_path = settings.join_path(settings.MEDIA_DIR, filename)
+        cv2.imwrite(magic_image_path, magic_color_image)
+        return 'success'
+    except Exception as e:
+        return 'fail'
+
+
+@app.route('/prediction', methods=['GET'])
+def prediction():
+    return 'successfully wrapped the image'
 
 
 if __name__ == '__main__':

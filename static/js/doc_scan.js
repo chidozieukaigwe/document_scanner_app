@@ -151,16 +151,20 @@ function randomFromTo(from, to) {
 // AJAX
 $(document).ready(function () {
     $("#sendData").click(function () {
+        const fileName = document.getElementById('sendData').dataset.key
         $("#loader").html('<img src="/static/images/scan.gif">');
         $.ajax({
             type: 'POST',
             url: "/transform",
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify({
-                "data": [[circles[0].x, circles[0].y],
+                "data": [
+                    [circles[0].x, circles[0].y],
                     [circles[1].x, circles[1].y],
                     [circles[2].x, circles[2].y],
-                    [circles[3].x, circles[3].y]]
+                    [circles[3].x, circles[3].y]
+                ],
+                "fileName": fileName
             }),
             success: function () {
                 window.location.href = 'prediction';

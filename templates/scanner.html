@@ -14,6 +14,13 @@
 					<button type="submit" class="btn btn-primary">Upload Document(s)</button>
 				</div>
 			</form>
+			{% if file_upload %}
+				<div class="row">
+					<button class="btn btn-primary" id="sendData">
+						Wrap Document and Extract Text
+					</button>
+				</div>
+			{% endif %}
 		</div>
 		<!-- Creating CANVAS-->
 		{% if file_upload %}
@@ -32,6 +39,15 @@
 			</div>
 			<script>
                 loadPoints({{ points | tojson }}, '/' + {{ image_path|tojson|safe }})
+                const imagePath = {{ image_path|tojson|safe }}
+                // Get Filename
+                const fileName = imagePath.split('/')[2]
+                const fileDateTimeStamp = fileName.replace('resize_image_', "")
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    const targetEl = document.getElementById('sendData')
+                    targetEl.dataset.key = fileDateTimeStamp
+                })
 			</script>
 		{% endif %}
 	</div>

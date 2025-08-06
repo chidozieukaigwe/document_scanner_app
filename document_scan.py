@@ -89,17 +89,17 @@ class DocumentScanner:
         except (RuntimeError, TypeError, NameError):
             return None, self.size
 
+    def calibrate_to_original_size(self, four_points):
+        # @todo wrap this in a try catch + produce an exception
+        # Find four points for original image
+        multiplier = self.image.shape[1] / self.size[0]
+        four_points_orig = four_points * multiplier
+        four_points_orig = four_points_orig.astype(int)
 
-def calibrate_to_original_size(self, four_points):
-    # Find four points for original image
-    multiplier = self.image.shape[1] / self.size[0]
-    four_points_orig = four_points * multiplier
-    four_points_orig = four_points_orig.astype(int)
+        # Crop Image
+        wrap_image = four_point_transform(self.image, four_points_orig)
 
-    # Crop Image
-    wrap_image = four_point_transform(self.image, four_points_orig)
+        # apply magic color to wrap image
+        magic_color = self.apply_brightness_contrast(wrap_image, brightness=40, contrast=60)
 
-    # apply magic color to wrap image
-    magic_color = self.apply_brightness_contrast(wrap_image, brightness=40, contrast=40)
-
-    return magic_color
+        return magic_color
